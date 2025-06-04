@@ -1,0 +1,79 @@
+input[type=password],
+input[type=text] {
+  appearance: none;
+  background: none;
+  border: none;
+  color: #272727;
+  font-family: var( --font-family );
+  font-size: 1rem;
+  height: 2.25rem;
+  line-height: 2.25rem;
+  margin: 0;
+  outline: transparent;
+  padding: 0 0 0 1rem;
+  text-rendering: optimizeLegibility;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;              
+}
+
+input[type=password]:placeholder-shown ~ button:last-of-type,
+input[type=text]:placeholder-shown ~ button:last-of-type {
+  display: none;
+}        
+
+label:has( input[type=password] ) button,
+label:has( input[type=text] ) button {
+  display: none;
+}
+
+label:has( input[type=password] ):focus-within button,
+label:has( input[type=text] ):focus-within button {
+  display: flex;
+}
+
+input[type=password]::placeholder,
+input[type=text]::placeholder {
+  color: #c6c6c6;
+  opacity: 1.0;
+}
+
+label:has( input[type=password] ),
+label:has( input[type=text] ) {
+  align-items: center;
+  border: none;
+  box-sizing: border-box;
+  cursor: text;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0 0.50rem 0 0;
+  -webkit-tap-highlight-color: transparent;              
+}
+
+label[divided]:has( input[type=password] ),
+label[divided]:has( input[type=text] ) {
+  border-bottom: solid 1px #e5e5e5;
+}
+
+label[filled]:has( input[type=password] ),
+label[filled]:has( input[type=text] ) {
+  background-color: #ffffff;
+}
+
+label[rounded]:has( input[type=password] ),
+label[rounded]:has( input[type=text] ) {
+  border-radius: 4px;
+}
+
+label:has( input[type=password] ) button img,
+label:has( input[type=text] ) button img {
+  filter: 
+    invert( 76% ) 
+    sepia( 0% ) 
+    saturate( 107% ) 
+    hue-rotate( 140deg ) 
+    brightness( 83% ) 
+    contrast( 90% );
+  height: 1rem;
+  width: 1rem;               
+}

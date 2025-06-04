@@ -1,0 +1,65 @@
+aa-calendar-details {
+  display: flex;
+  flex-basis: 0;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 4rem 0 0 0;  
+}
+
+aa-calendar-details[hidden] {
+  display: none;
+}
+
+aa-calendar-details aa-calendar-section:has( ul:empty ) {
+  display: none;
+}
+
+aa-calendar-details aa-calendar-section:first-of-type {
+  display: flex;
+}
+
+aa-calendar-details aa-calendar-section:last-of-type {
+  padding-bottom: 0;
+}
+
+aa-calendar-details h3 {
+  margin-bottom: 0.50rem;
+  padding: 0 0 0 1rem;
+}
+
+aa-calendar-details > div.hbox:last-of-type {
+  align-items: center;
+  margin-top: auto;
+  min-height: calc( 3rem - 1px ); 
+}
+
+aa-calendar-details > div.hbox:last-of-type button:last-of-type {
+  margin-left: auto;
+}
+
+aa-calendar-details small {
+  display: none;
+  padding-bottom: 1rem;
+}
+
+aa-calendar-details[disabled] button {
+  color: #aaaaaa;
+}
+
+aa-calendar-details[disabled] aa-calendar-section ul li button img {
+  filter: 
+    invert( 86% ) 
+    sepia( 7% ) 
+    saturate( 7% ) 
+    hue-rotate( 321deg ) 
+    brightness( 79% ) 
+    contrast( 100% );  
+}
+
+aa-calendar-details[disabled] input[type=checkbox] {
+  border-color: #aaaaaa !important;  
+}
+
+aa-calendar-details[disabled] svg path {
+  fill: #aaaaaa;  
+}

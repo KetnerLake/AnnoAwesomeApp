@@ -1,0 +1,29 @@
+div.vbox {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+} 
+
+div.vbox.centered {
+  justify-content: center;
+}
+
+div.vbox.concealed {
+  visibility: hidden;
+}
+
+div.vbox.divided {
+  border-bottom: solid 1px #e5e5e5;  
+}
+
+div.vbox.filled {
+  background-color: #ffffff;
+}
+
+div.vbiox.justified {
+  align-items: center;
+}
+
+div.vbox.rounded {
+  border-radius: 4px;
+}

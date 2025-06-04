@@ -1,0 +1,72 @@
+aa-attachments {
+  position: relative;
+}
+
+aa-attachments.hidden,
+aa-attachments[hidden] {
+  display: none;
+}
+
+aa-attachments > button {
+  width: 100%;
+}
+
+aa-attachments > input {
+  height: 0;
+  visibility: hidden;
+  position: absolute;
+  width: 0;
+}
+
+aa-attachments:has( li ) > button {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+aa-attachments > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+aa-attachments > ul li {
+  align-items: center;
+  background-color: #ffffff;
+  border-bottom: solid 1px #e5e5e5;
+  display: flex;
+  flex-direction: row;
+  gap: 0.50rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0 0.50rem 0 1rem;
+  padding-left: calc( 1rem - 2px );
+}
+
+aa-attachments > ul li p {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+aa-attachments > ul li img {
+  filter: 
+    invert( 76% ) 
+    sepia( 0% ) 
+    saturate( 107% ) 
+    hue-rotate( 140deg ) 
+    brightness( 83% ) 
+    contrast( 90% );  
+}
+
+aa-attachments > ul li button img {
+  height: 1rem;
+  width: 1rem;
+}
+
+aa-attachments > ul li:last-of-type {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+aa-attachments > ul:empty {
+  display: none;
+}

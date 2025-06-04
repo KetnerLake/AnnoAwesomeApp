@@ -1,0 +1,42 @@
+#details aa-stack > aa-vbox {
+  background-color: #ffffff;
+  padding: 8px 0 8px 0;
+  width: 328px;
+}
+
+#details aa-stack > aa-vbox > aa-button::part( button ) {
+  color: red;
+  text-align: center;
+}
+
+#details aa-stack > aa-vbox > aa-divider {
+  margin: 0 0 0 16px;
+}
+
+#details aa-stack > aa-vbox > aa-hbox {
+  align-items: center;
+  padding: 0 0 0 16px;  
+}
+
+#details aa-stack > aa-vbox > aa-vbox {
+  padding: 8px 0 8px 16px;
+  gap: 8px;
+}
+
+#details aa-stack > aa-vbox > aa-hbox aa-label {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+#details aa-stack > aa-vbox > aa-vbox:last-of-type > aa-label:last-of-type::part( label ) {
+  color: #8d8d8d;
+}
+
+#details aa-stack > aa-vbox > aa-label::part( label ) {
+  color: #8d8d8d;
+  margin: 0 0 0 16px;  
+}
+
+#details aa-stack > aa-vbox > aa-link {
+  margin: 0 0 0 16px;
+}

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Plan your year. Track annual progress. Feel awesome about your accomplishments. Anno Awesome: The missing year view.">
+
+    <title>Canvas Test</title>
+
+    <link href="./img/trident.svg" rel="icon" type="image/svg+xml" />
+    <!-- <link href="./style/awesome.css" rel="stylesheet" /> -->
+
+    <style>
+      @font-face {
+        font-family: 'IBM Plex Sans';
+        font-weight: 400;  
+        src: url( '../fonts/Plex/Sans/IBMPlexSans-Regular.woff2' ) format( 'woff2' );
+      }
+
+      @font-face {
+        font-family: 'IBM Plex Sans';
+        font-weight: 600;  
+        src: url( '../fonts/Plex/Sans/IBMPlexSans-SemiBold.woff2' ) format( 'woff2' );
+      }   
+
+      html {
+        height: 100%;
+      }
+      
+      body {
+        align-items: center;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      aa-year {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        height: 600px;
+        overflow: auto;
+        position: relative;
+        width: 800px;
+      }
+
+      aa-year canvas {
+        display: block;
+        height: 1240px;
+        image-rendering: crisp-edges;
+        width: 2880px;
+      }      
+
+      aa-year header {
+        display: flex;
+        flex-direction: row;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      aa-year section {
+        display: block;
+        position: relative;
+      }      
+
+      aa-year section article {
+        height: 1240px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 2880px;
+        z-index: 10;
+      }
+
+      aa-year article button {
+        align-items: flex-start;
+        background: none;
+        background-color: var( --event-inactive-background-color );        
+        border: none;
+        border-left-color: var( --event-active-background-color );        
+        border-left-width: 4px;
+        border-left-style: solid;        
+        border-radius: 4px;
+        box-sizing: border-box;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        justify-content: flex-start;
+        margin: 0;
+        overflow: hidden;
+        padding: 2px 4px 0 4px;
+        position: absolute;
+        text-align: left;
+      }      
+
+      aa-year article button span {
+        box-sizing: border-box;
+        color: var( --event-inactive-color );        
+        font-family: 'IBM Plex Sans', serif;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-rendering: optimizeLegibility;
+        white-space: nowrap;
+        width: 100%;
+      }
+
+      aa-year article button span:last-of-type {
+        font-weight: 400;
+      }
+
+      aa-year article button:focus {      
+        background-color: var( --event-active-background-color ); 
+      }
+
+      aa-year article button:focus span {      
+        color: #ffffff;
+      }
+
+      aa-year header button {
+        background: none;
+        background-color: #f4f4f4;
+        border: none;
+        border-bottom: solid 1px #c7c7c7;
+        border-right: solid 1px #e5e5e5;
+        border-radius: 0;
+        box-sizing: border-box;
+        color: #272727;
+        cursor: pointer;
+        display: block;
+        height: 37px;
+        font-family: 'IBM Plex Sans', sans-serif;
+        font-size: 16px;
+        line-height: 36px;
+        margin: 0;
+        min-width: 240px;
+        padding: 0 0 1px 0;
+        width: 240px;
+      }
+
+      aa-year header button:last-of-type {      
+        border-right: none;
+      }
+
+      aa-year header button:hover {      
+        color: #0082ff;
+      }
+
+      aa-year[hide-headers] header {
+        display: none;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <aa-year value="2023">
+      <header>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>                        
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>                        
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>                                        
+      </header>
+      <section>
+        <canvas height="1240" width="2880"></canvas>
+        <article></article>
+      </section>
+    </aa-year>
+
+    <script src="/app/lib/calendar-tiler.js"></script>
+
+    <script>
+      customElements.define( 'aa-year', class extends HTMLElement {
+        constructor() {
+          super();
+
+          this.CELL_HEIGHT = 40;
+          this.CELL_WIDTH = 240;
+
+          this.doEventClick = this.doEventClick.bind( this );
+          this.doMonthClick = this.doMonthClick.bind( this );
+
+          this._colors = [
+            {name: 'Red', value: '#ff2968'},
+            {name: 'Orange', value: '#ff9500'},
+            {name: 'Yellow', value: '#ffcc02'},
+            {name: 'Green', value: '#63da38'},
+            {name: 'Blue', value: '#1badf8'},
+            {name: 'Purple', value: '#cc73e1'}
+          ];
+          this._data = [];
+          this._touch = ( 'ontouchstart' in document.documentElement ) ? 'touchstart' : 'click';    
+
+          this.$canvas = this.querySelector( 'canvas' );
+          this.$context = this.$canvas.getContext( '2d' );
+          this.$headers = this.querySelectorAll( 'header button' );
+          this.$sheet = this.querySelector( 'article' );
+
+          const formatter = new Intl.DateTimeFormat( navigator.language, {
+            month: 'long'
+          } );
+          const year = this.hasAttribute( 'value' ) ? parseInt( this.getAttribute( 'value' ) ) : new Date().getFullYear();
+          for( let m = 0; m < 12; m++ ) {
+            this.$headers[m].setAttribute( 'data-month', m );
+            this.$headers[m].textContent = formatter.format( new Date( year, m, 1 ) );
+          }
+
+          this.draw();
+        }
+
+        doEventClick( evt ) {
+          this.dispatchEvent( new CustomEvent( 'aa-change', {
+            detail: {
+              id: evt.target.getAttribute( 'data-id' )
+            }
+          } ) );
+        }        
+
+        doMonthClick( evt ) {
+          const month = parseInt( evt.target.getAttribute( 'data-month' ) );
+          this.dispatchEvent( new CustomEvent( 'aa-month', {
+            detail: {
+              month: month,
+              width: evt.target.clientWidth
+            }
+          } ) );
+        }        
+
+        draw( year = null ) {
+          if( year === null ) {
+            year = this.hasAttribute( 'value' ) ? parseInt( this.getAttribute( 'value' ) ) : new Date().getFullYear();
+          }
+
+          const today = new Date();
+          let index = 0;
+
+          for( let m = 0; m < 12; m++ ) {
+            for( let d = 0; d < 31; d++ ) {
+              const current = new Date( year, m, d + 1 );
+              const date = d + 1;
+              const month = m;
+
+              let isToday = false;
+              if( today.getFullYear() === current.getFullYear() &&
+                today.getMonth() === current.getMonth() &&
+                today.getDate() === current.getDate() ) {
+                isToday = true;
+              }             
+
+              const days = new Date( year, m + 1, 0 );          
+              const isOutside = ( d + 1 ) > days.getDate() ? true : false;
+
+              const track = this.week( current );
+              let week = null;
+              if( track !== index || d === 0 ) {
+                index = track;
+                week = index;
+              }
+
+              const weekend = current.getDay();
+
+              const row = date - 1;                        
+
+              if( isOutside ) {
+                this.$context.fillStyle = '#ffffff';
+              } else {
+                this.$context.fillStyle = weekend === 0 || weekend === 6 ? '#f5f5f5' : '#ffffff';
+              }              
+
+              this.$context.beginPath();
+              this.$context.rect( 
+                month * this.CELL_WIDTH, 
+                row * this.CELL_HEIGHT, 
+                this.CELL_WIDTH, 
+                this.CELL_HEIGHT 
+              );
+              this.$context.fill();              
+
+              this.$context.beginPath();
+              this.$context.fillStyle = isToday ? '#0082ff' : 'rgba( 0, 0, 0, 0 )';
+              this.$context.ellipse(
+                ( month * this.CELL_WIDTH ) + 21,
+                ( row * this.CELL_HEIGHT ) + 20,
+                18, 
+                18,
+                0, 
+                -3.14,
+                3.14
+              );
+              this.$context.fill();              
+
+              this.$context.fillStyle = isToday || isOutside ? '#ffffff' : '#272727';
+              this.$context.font = `${isToday ? 600 : 400} 16px IBM Plex Sans`;
+              this.$context.textAlign = 'center';
+              this.$context.textBaseline = week === null ? 'middle' : 'top';
+              this.$context.fillText( 
+                date, 
+                ( month * this.CELL_WIDTH ) + 21, 
+                ( row * this.CELL_HEIGHT ) + ( week === null ? 22 : 8 ) 
+              );       
+              
+              if( week !== null && isOutside === false ) {
+                this.$context.fillStyle = isToday ? '#ffffff' : '#868686';
+                this.$context.font = '12px IBM Plex Sans';
+                this.$context.textAlign = 'center';
+                this.$context.textBaseline = 'top';
+                this.$context.fillText( 
+                  week, 
+                  ( month * this.CELL_WIDTH ) + 21, 
+                  ( row * this.CELL_HEIGHT ) + 23 
+                );            
+              }
+
+              this.$context.strokeStyle = '#e5e5e5';                      
+
+              if( date < 31 && isOutside === false ) {
+                this.$context.beginPath();
+                this.$context.moveTo( 
+                  month * this.CELL_WIDTH, 
+                  ( row * this.CELL_HEIGHT ) + this.CELL_HEIGHT - 0.50
+                );
+                this.$context.lineTo( 
+                  ( month * this.CELL_WIDTH ) + this.CELL_WIDTH, 
+                  ( row * this.CELL_HEIGHT ) + this.CELL_HEIGHT - 0.50
+                );
+                this.$context.stroke();
+              }   
+              
+              if( month < 11 ) {
+                this.$context.beginPath();
+                this.$context.moveTo( 
+                  ( month * this.CELL_WIDTH ) + this.CELL_WIDTH - 0.50, 
+                  row * this.CELL_HEIGHT
+                );
+                this.$context.lineTo( 
+                  ( month * this.CELL_WIDTH ) + this.CELL_WIDTH - 0.50, 
+                  ( row * this.CELL_HEIGHT ) + this.CELL_HEIGHT
+                );        
+                this.$context.stroke();
+              }
+            }
+          }          
+        }
+
+        // https://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php/6117889#6117889
+        week( date ) {
+          date = new Date( Date.UTC( date.getFullYear(), date.getMonth(), date.getDate() ) );
+          date.setUTCDate( date.getUTCDate() + 4 - ( date.getUTCDay() || 7 ) );
+          const yearStart = new Date( Date.UTC( date.getUTCFullYear(), 0, 1 ) );
+          return Math.ceil( ( ( ( date - yearStart ) / 86400000 ) + 1 ) / 7 );
+        }        
+
+        _upgrade( property ) {
+          if( this.hasOwnProperty( property ) ) {
+            const value = this[property];
+            delete this[property];
+            this[property] = value;
+          }
+        }
+
+        connectedCallback() {    
+          this._upgrade( 'colors' );    
+          this._upgrade( 'data' );
+
+          for( let h = 0; h < this.$headers.length; h++ ) {
+            this.$headers[h].addEventListener( this._touch, this.doMonthClick );
+          }
+        }
+
+        disconnectedCallback() {
+          for( let h = 0; h < this.$headers.length; h++ ) {
+            this.$headers[h].removeEventListener( this._touch, this.doMonthClick );
+          }    
+        }
+
+        static get observedAttributes () {
+          return [
+            'selected-item',
+            'use-colors',
+            'value'
+          ];
+        }   
+  
+        attributeChangedCallback( name, oldValue, newValue ) {
+          if( name === 'selected-item' ) {
+            const events = this.$sheet.querySelectorAll( 'button' );
+            const item = this.hasAttribute( 'selected-item' ) ? this.getAttribute( 'selected-item' ) : null;
+
+            for( let e = 0; e < events.length; e++ ) {              
+              if( item !== null ) {
+                if( events[e].getAttribute( 'data-id' ) === item ) {
+                  events[e].focus();
+                  break;
+                }
+              }
+            }      
+          }
+
+          if( name === 'use-calendar-color' ) {
+            for( let c = 0; c < this.$sheet.children.length; c++ ) {
+              let color = this.$sheet.children[c].getAttribute( 'data-month-color' );
+              if( this.hasAttribute( 'use-calendar-color' ) ) {
+                color = this.$sheet.children[c].getAttribute( 'data-calendar-color' );
+              }        
+
+              this.$sheet.children[c].style.setProperty( '--event-active-background-color', color );        
+              this.$sheet.children[c].style.setProperty( '--event-inactive-color', `hsl( from ${color} h s calc( l - 20 ) )` );                
+              this.$sheet.children[c].style.setProperty( '--event-inactive-background-color', color + '4d' );                      
+            }
+          }
+
+          if( name === 'value' ) {
+            const year = this.hasAttribute( 'value' ) ? parseInt( this.getAttribute( 'value' ) ) : new Date().getFullYear();
+            this.draw( year );
+          }
+        }
+
+        get colors() {
+          return this._colors.length === 0 ? null : this._colors;
+        }
+
+        set colors( value ) {
+          this._colors = value === null ? [] : [... value];
+        }        
+
+        get data() {
+          return this._data.length === 0 ? null : this._data;
+        }
+
+        set data( value ) {        
+          this._data = value === null ? [] : [... value];  
+
+          while( this.$sheet.children.length > this._data.length ) {
+            this.$sheet.children[0].removeEventListener( this._touch, this.doEventClick );
+            this.$sheet.children[0].remove();
+          }
+
+          while( this.$sheet.children.length < this._data.length ) {
+            const element = document.createElement( 'button' );
+            const summary = document.createElement( 'span' );
+            const location = document.createElement( 'span' );
+
+            element.appendChild( summary );
+            element.appendChild( location );
+            element.addEventListener( this._touch, this.doEventClick );                        
+
+            this.$sheet.appendChild( element );
+          }
+
+          const year = this.hasAttribute( 'value' ) ? parseInt( this.getAttribute( 'value' ) ) : new Date().getFullYear();          
+          let index = 0;
+
+          for( let m = 0; m < 12; m++ ) {
+            let color = this._colors[m % this._colors.length].value;                                  
+
+            const month = this._data.filter( ( value ) => value.startsAt.getMonth() === m && value.startsAt.getFullYear() === year ? true : false );
+            month.map( ( value ) => {
+              value.start = value.startsAt.getDate();
+              value.duration = ( value.endsAt.getDate() - value.startsAt.getDate() ) + 1;
+              return value;
+            } );
+            const tiles = calendarTiler.tileAppointments( month, {
+              delineator: 'duration',
+              usesDuration: true
+            } );
+
+            for( let a = 0; a < tiles.sortedAppointments.length; a++ ) {
+              const left = ( m * this.CELL_WIDTH ) + 44;
+              const column = this.CELL_WIDTH - 45;              
+
+              const event = this.$sheet.children[index];
+              event.setAttribute( 'data-id', tiles.sortedAppointments[a].id );
+              event.setAttribute( 'data-calendar-color', tiles.sortedAppointments[a].color );
+              event.setAttribute( 'data-month-color', color );              
+              event.children[0].textContent = tiles.sortedAppointments[a].summary;
+              event.style.left = ( left + ( column * tiles.positions[a].x ) ) + 'px';
+              event.style.width = ( column * tiles.positions[a].dx ) + 'px';
+              event.style.top = ( ( tiles.positions[a].y - 1 ) * this.CELL_HEIGHT ) + 'px';
+              event.style.height = ( ( tiles.positions[a].dy * this.CELL_HEIGHT ) - 1 ) + 'px';
+
+              if( this.hasAttribute( 'use-calendar-color' ) ) {
+                color = tiles.sortedAppointments[a].color;
+              }
+
+              event.style.setProperty( '--event-active-background-color', color );        
+              event.style.setProperty( '--event-inactive-color', `hsl( from ${color} h s calc( l - 20 ) )` );                
+              event.style.setProperty( '--event-inactive-background-color', color + '4d' );                      
+
+              index = index + 1;
+            }
+          }
+        }
+      } );
+
+      const year = document.querySelector( 'aa-year' );
+      year.addEventListener( 'aa-change', ( evt ) => {
+        console.log( evt.detail.id );
+      } );
+      year.addEventListener( 'aa-month', ( evt ) => {
+        console.log( evt.detail.month );
+      } );
+
+      fetch( 'https://annoawesome-public.s3.us-west-2.amazonaws.com/BFdef5a0.json' )
+      .then( ( response ) => response.json() )
+      .then( ( data ) => {
+        data.events.map( ( value ) => {
+          value.startsAt = new Date( value.startsAt );
+          value.endsAt = new Date( value.endsAt );
+          return value;
+        } );
+
+        year.data = data.events;
+      } );      
+
+      /*
+      const CELL_WIDTH = 240;
+      const CELL_HEIGHT = 40;
+
+      const canvas = document.querySelector( 'canvas' );      
+
+      document.fonts.ready.then( () => {
+        const sheet = [];
+
+        const today = new Date();
+        const year = new Date().getFullYear();
+
+        let index = 0;        
+                
+        for( let m = 0; m < 12; m++ ) {
+          for( let d = 0; d < 31; d++ ) {
+            const current = new Date( year, m, d + 1 );
+            const cell = {
+              date: d + 1,              
+              month: m,
+              year: year,
+              today: false,
+              outside: false,
+              week: null,
+              weekend: current.getDay()              
+            };            
+
+            const days = new Date( year, m + 1, 0 );          
+            cell.outside = ( d + 1 ) > days.getDate() ? true : false;
+
+            const track = this.week( current );
+            if( track !== index || d === 0 ) {
+              index = track;
+              cell.week = index;
+            } else {
+              cell.week = null;
+            }
+
+            if( today.getFullYear() === current.getFullYear() &&
+                today.getMonth() === current.getMonth() &&
+                today.getDate() === current.getDate() ) {
+                cell.today = true;
+            } else {
+              cell.today = false;
+            }                      
+
+            sheet.push( cell );
+          }
+        }
+
+        let context = canvas.getContext( '2d' );
+
+        for( let s = 0; s < sheet.length; s++ ) {
+          cell( context, sheet[s] );
+        }
+      } );
+
+      function cell( ctx, data ) {
+        let row = data.date - 1;
+
+        if( data.outside ) {
+          ctx.fillStyle = '#ffffff';
+        } else {
+          ctx.fillStyle = data.weekend === 0 || data.weekend === 6 ? '#f5f5f5' : '#ffffff';
+        }
+        
+        ctx.beginPath();
+        ctx.rect( 
+          data.month * CELL_WIDTH, 
+          row * CELL_HEIGHT, 
+          CELL_WIDTH, 
+          CELL_HEIGHT 
+        );
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = data.today ? '#0082ff' : 'rgba( 0, 0, 0, 0 )';
+        ctx.ellipse(
+          ( data.month * CELL_WIDTH ) + 21,
+          ( row * CELL_HEIGHT ) + 20,
+          18, 
+          18,
+          0, 
+          -3.14,
+          3.14
+        );
+        ctx.fill();
+
+        ctx.fillStyle = data.today || data.outside ? '#ffffff' : '#272727';
+        ctx.font = `${data.today ? 600 : 400} 16px IBM Plex Sans`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = data.week === null ? 'middle' : 'top';
+        ctx.fillText( 
+          data.date, 
+          ( data.month * CELL_WIDTH ) + 21, 
+          ( row * CELL_HEIGHT ) + ( data.week === null ? 22 : 8 ) 
+        );
+
+        if( data.week !== null && data.outside === false ) {
+          ctx.fillStyle = data.today ? '#ffffff' : '#868686';
+          ctx.font = '12px IBM Plex Sans';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.fillText( 
+            data.week, 
+            ( data.month * CELL_WIDTH ) + 21, 
+            ( row * CELL_HEIGHT ) + 23 
+          );            
+        }
+
+        ctx.strokeStyle = '#e5e5e5';        
+
+        if( data.date < 31 && data.outside === false ) {
+          ctx.beginPath();
+          ctx.moveTo( 
+            data.month * CELL_WIDTH, 
+            ( row * CELL_HEIGHT ) + CELL_HEIGHT - 0.50
+          );
+          ctx.lineTo( 
+            ( data.month * CELL_WIDTH ) + CELL_WIDTH, 
+            ( row * CELL_HEIGHT ) + CELL_HEIGHT - 0.50
+          );
+          ctx.stroke();
+        }
+
+        if( data.month < 11 ) {
+          ctx.beginPath();
+          ctx.moveTo( 
+            ( data.month * CELL_WIDTH ) + CELL_WIDTH - 0.50, 
+            row * CELL_HEIGHT
+          );
+          ctx.lineTo( 
+            ( data.month * CELL_WIDTH ) + CELL_WIDTH - 0.50, 
+            ( row * CELL_HEIGHT ) + CELL_HEIGHT
+          );        
+          ctx.stroke();
+        }
+      }
+
+      // https://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php/6117889#6117889
+      function week( date ) {
+        date = new Date( Date.UTC( date.getFullYear(), date.getMonth(), date.getDate() ) );
+        date.setUTCDate( date.getUTCDate() + 4 - ( date.getUTCDay() || 7 ) );
+        const yearStart = new Date( Date.UTC( date.getUTCFullYear(), 0, 1 ) );
+        return Math.ceil( ( ( ( date - yearStart ) / 86400000 ) + 1 ) / 7 );
+      }
+
+      fetch( 'https://annoawesome-public.s3.us-west-2.amazonaws.com/BFdef5a0.json' )
+      .then( ( response ) => response.json() )
+      .then( ( data ) => {
+        const article = document.querySelector( 'article' );
+
+        data.events.map( ( value ) => {
+          value.startsAt = new Date( value.startsAt );
+          value.endsAt = new Date( value.endsAt );
+          value.left = ( value.startsAt.getMonth() * CELL_WIDTH ) + 42;
+          value.top = ( value.startsAt.getDate() - 1 ) * CELL_HEIGHT;
+          value.height = ( ( ( value.endsAt.getDate() - value.startsAt.getDate() ) + 1 ) * CELL_HEIGHT ) - 1;
+          value.width = CELL_WIDTH - 1 - 42;
+          return value;
+        } );
+
+        data.events.sort( ( a, b ) => {
+          if( a.startsAt < b.startsAt ) return -1;
+          if( a.startsAt > b.startsAt ) return 1;
+          return 0;
+        } );
+
+        console.log( data.events );        
+
+        for( let e = 0; e < data.events.length; e++ ) {
+          const button = document.createElement( 'button' );
+          button.style.backgroundColor = data.events[e].color + '4d';
+          button.style.borderLeft = 'solid 4px ' + data.events[e].color;
+          button.style.color = `hsl( from ${data.events[e].color} h s calc( l - 20 ) )`;          
+          button.style.left = data.events[e].left + 'px';
+          button.style.top = data.events[e].top + 'px';          
+          button.style.width = data.events[e].width + 'px';          
+          button.style.height = data.events[e].height + 'px';    
+          button.textContent = data.events[e].summary;      
+          article.appendChild( button );
+        }
+      } );
+             */
+    </script>
+
+  </body>
+</html>

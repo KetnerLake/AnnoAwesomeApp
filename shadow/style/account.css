@@ -1,0 +1,32 @@
+#account aa-divider {
+  margin: 0 0 0 16px;
+}
+
+#account aa-stack > aa-vbox {
+  padding: 16px;
+}
+
+#account aa-stack > aa-vbox > aa-label {
+  /*
+  background-color: #0082ff33;
+  border: solid 1px #0082ff;
+  border-radius: 4px;
+  padding: 12px;
+  */  
+  margin: -8px 0 0 0;
+  padding: 0 16px 0 16px;
+  --label-color: #9e9e9e;
+}
+
+#account aa-stack > aa-vbox > aa-label::part( label ) {
+  line-height: 21px;
+}
+
+#account aa-stack > aa-vbox > aa-vbox {
+  background-color: #ffffff;
+  border-radius: 4px;
+}
+
+#account aa-stack > aa-vbox > aa-vbox aa-button::part( button ) {
+  text-align: left;
+}

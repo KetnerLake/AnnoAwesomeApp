@@ -1,0 +1,128 @@
+div.vbox:has( aa-date-picker ) aa-date-picker {
+  border-bottom: solid 1px #e5e5e5;
+}
+
+div.vbox:has( aa-date-picker ) aa-date-picker:last-of-type {
+  border-bottom: none;
+}
+
+aa-date-picker {
+  display: flex;
+  flex-direction: column;
+}
+
+aa-date-picker div.calendar {
+  padding: 0.50rem 0 0 0;
+}
+
+aa-date-picker div.calendar > div:first-of-type {
+  padding: 0 0.50rem 0 0;
+}
+
+aa-date-picker div.calendar > div:first-of-type p {
+  font-weight: 600;
+  padding: 0 0 0 1rem;
+}
+
+aa-date-picker div.calendar > div:first-of-type button:first-of-type {
+  margin-left: auto;
+}
+
+aa-date-picker details summary p:last-of-type {
+  background-color: #efefef;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 1.75rem;
+  line-height: 1.75rem;
+  margin-left: auto;
+  min-width: 0;
+  padding: 0 0.50rem 0 0.50rem;
+  text-align: right;
+}
+
+aa-date-picker details[open] summary p:last-of-type {
+  color: #0082ff;
+}
+
+aa-date-picker[invalid] details summary p:last-of-type {
+  color: red;
+  text-decoration: line-through;
+}
+
+aa-date-picker div.week {
+  box-sizing: border-box;
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+  gap: 2px 2px;          
+  padding: 0 1rem 0 1rem;
+}
+
+aa-date-picker div.week p {
+  color: #c6c6c6;
+  font-size: 0.875rem;
+  line-height: 2.25rem;
+  justify-self: center;
+  text-transform: uppercase;
+}
+
+aa-date-picker div.month {
+  box-sizing: border-box;
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+  gap: 1px 0;           
+  padding: 0 16px 8px 16px;
+}
+
+aa-date-picker div.month.six {
+  gap: 0;
+  padding-bottom: 6px;
+}
+
+aa-date-picker div.month button {
+  appearance: none;
+  background: none;
+  border: none;
+  border-radius: 42px;
+  box-sizing: border-box;
+  color: #272727;
+  cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;            
+  font-size: 16px;          
+  height: 42px;
+  line-height: 42px;
+  justify-content: center;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  text-align: center;
+  text-rendering: optimizeLegibility;
+  width: 42px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+aa-date-picker div.month.six button {
+  border-radius: 36px;
+  height: 36px;
+  line-height: 36px;
+  width: 36px;
+}
+
+aa-date-picker div.month button.outside {
+  visibility: hidden;
+}
+
+aa-date-picker div.month button.selected {
+  background-color: #0082ff4d;
+  color: #0082ff;
+  font-weight: 600;          
+}
+
+aa-date-picker div.month button.today {
+  color: #0082ff;
+}
+
+aa-date-picker div.month button.today.selected {
+  background: #0082ff;
+  color: #ffffff;
+  font-weight: 600;                    
+}

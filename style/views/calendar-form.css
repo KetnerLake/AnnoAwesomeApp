@@ -1,0 +1,136 @@
+dialog:has( aa-calendar-form ) {
+  backdrop-filter: blur( 10px ); 
+  background-color: rgba( 247, 247, 247, 0.70 );
+  border: none; 
+  border-radius: 4px; 
+  box-shadow:
+    0 0 40px -10px rgba( 0, 0, 0, 0.30 ),
+    0 0 25px -15px rgba( 0, 0, 0, 0.20 ); 
+  box-sizing: border-box;   
+  width: 360px;    
+  padding: 1rem;
+  -webkit-backdrop-filter: blur( 10px );
+}
+
+aa-calendar-form {
+  display: flex;
+  flex-direction: column;
+}
+
+aa-calendar-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+aa-calendar-form form > button:last-of-type {
+  background-color: #ffffff;
+  color: red;
+  display: none;
+  justify-content: center;
+}
+
+aa-calendar-form form > button:last-of-type:active {
+  animation: 2s waitforit ease-out forwards;  
+  background-image: linear-gradient( 
+    to right, 
+    rgba( 255, 0, 0, 0.20 ) 0, 
+    rgba( 255, 0, 0, 0.20 ) 50%,
+    white 50%, 
+    white 100%  
+  );
+  background-size: 200% 100%;
+  background-position: 0;
+}
+
+@keyframes waitforit {
+  from {
+    background-position: 100%;
+  }
+  to {
+    background-position: 0;
+  }
+}
+
+aa-calendar-form[can-delete] form > button:last-of-type {
+  display: block;
+}
+
+aa-calendar-form form div.vbox > button {
+  background-color: #ffffff;
+}
+
+aa-calendar-form form div.hbox:has( label.toggle ) {
+  align-items: center;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  height: 2.25rem;
+  padding: 0 0.75rem 0 1rem;
+}
+
+aa-calendar-form form div.hbox:has( label.toggle ) p {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+aa-calendar-form form div.vbox > p {
+  padding: 0 0 0 1rem;
+}
+
+aa-calendar-form form div.vbox > small {
+  padding: 0.50rem 1rem 0 1rem;
+}
+
+aa-calendar-form form label {
+  border-radius: 4px;
+}
+
+aa-calendar-form div.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-rows: 1fr; 
+  gap: 0px 0px;
+}
+
+aa-calendar-form div.grid button {
+  padding: 0;
+}
+
+aa-calendar-form div.grid button:last-of-type {
+  justify-self: end;
+}
+
+aa-calendar-form div.grid p {
+  font-weight: 600;
+  text-align: center;
+}
+
+#calendar_url {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  display: none;
+  padding: 0 0.50rem 0 1rem;
+}
+
+#calendar_url p:first-of-type {
+  flex-basis: 0;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;  
+  white-space: nowrap;    
+}
+
+#calendar_url p:last-of-type {
+  padding-right: 0.50rem;
+}
+
+#calendar_public:has( input:checked ) > div:first-of-type {
+  border-bottom: solid 1px #e5e5e5;  
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#calendar_public > div:has( input:checked ) ~ div {
+  display: flex;
+}

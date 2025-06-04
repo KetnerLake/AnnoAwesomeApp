@@ -1,0 +1,252 @@
+
+
+a {
+  color: #0082ff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.25s linear;  
+  -webkit-tap-highlight-color: transparent;
+}
+
+a.disabled {
+  color: #aaaaaa;
+}
+
+button {
+  appearance: none;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: #0082ff;          
+  cursor: pointer;
+  display: inline;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;          
+  height: 36px;
+  line-height: 36px;
+  margin: 0;
+  outline: none;
+  padding: 0 16px 0 16px;
+  text-rendering: optimizeLegibility;
+  transition: color 0.25s linear;
+  -webkit-tap-highlight-color: transparent;            
+}
+
+button.form {
+  background-color: #ffffff;
+  border-radius: 4px;
+  margin: 0 16px 16px 16px;
+}
+
+button.icon {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  width: 36px;
+}
+
+button.icon img {
+  filter: 
+    invert( 31% ) 
+    sepia( 49% ) 
+    saturate( 3696% ) 
+    hue-rotate( 198deg ) 
+    brightness( 106% ) 
+    contrast( 103% );  
+  height: 20px;
+  transition: filter 0.25s linear;
+  width: 20px;
+}
+
+button[disabled] {
+  color: #aaaaaa;
+  cursor: not-allowed;            
+}
+
+button[disabled].icon img {
+  filter: 
+    invert( 86% ) 
+    sepia( 7% ) 
+    saturate( 7% ) 
+    hue-rotate( 321deg ) 
+    brightness( 79% ) 
+    contrast( 100% );
+}
+
+footer {
+  align-items: center;
+  border-top: solid 1px #c7c7c7;  
+  height: 50px;
+  margin: 0;
+  padding: 0 16px 0 16px;
+}
+
+form {
+  background-color: #ffffff; 
+  border-radius: 4px;  
+  display: flex;
+  flex-direction: column;
+  margin: 16px 16px 0 16px;
+  padding: 0;
+}
+
+form button {
+  text-align: left;
+}
+
+form label {
+  background: none;
+  padding: 0 0 0 16px;
+}
+
+header { 
+  margin: 0;
+  padding: 8px 16px 8px 16px;
+}
+
+img.icon {
+  filter: 
+    invert( 31% ) 
+    sepia( 49% ) 
+    saturate( 3696% ) 
+    hue-rotate( 198deg ) 
+    brightness( 106% ) 
+    contrast( 103% );  
+  height: 20px;
+  transition: filter 0.25s linear;
+  width: 20px;
+}
+
+img.icon.invert {
+  filter: 
+    invert( 100% ) 
+    sepia( 36% ) 
+    saturate( 0% ) 
+    hue-rotate( 249deg ) 
+    brightness( 114% ) 
+    contrast( 100% );
+}
+
+input[type=range] {
+  justify-self: end;
+  width: 200px;
+}
+
+input[type=password],
+input[type=search],
+input[type=text] {
+  appearance: none;
+  background: none;
+  border: none;
+  color: #272727;
+  flex-basis: 0;
+  flex-grow: 1;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  height: 36px;
+  line-height: 36px;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  width: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input[type=search]::placeholder {
+  color: #828282;
+  opacity: 1.0;
+}
+
+input[type=password]:placeholder-shown ~ button,
+input[type=search]:placeholder-shown ~ button,
+input[type=text]:placeholder-shown ~ button {
+  display: none;
+}
+
+input[type=password]::placeholder,
+input[type=text]::placeholder {
+  color: #c6c6c6;
+  opacity: 1.0;
+}
+
+label {
+  align-items: center;
+  background-color: #e9e9e9;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  min-width: 200px;
+}
+
+label > img.icon {
+  cursor: text;
+  filter: 
+    invert( 55% ) 
+    sepia( 1% ) 
+    saturate( 0% ) 
+    hue-rotate( 157deg ) 
+    brightness( 92% ) 
+    contrast( 91% );  
+  height: 16px;
+  margin: 0 12px 0 12px;
+  width: 16px;
+}
+
+label button img {
+  filter: 
+    invert( 55% ) 
+    sepia( 1% ) 
+    saturate( 0% ) 
+    hue-rotate( 157deg ) 
+    brightness( 92% ) 
+    contrast( 91% ) !important;  
+  height: 16px !important;
+  width: 16px !important;  
+}
+
+p {
+  box-sizing: border-box;
+  cursor: default;
+  display: inline;
+  font-size: 16px;
+  line-height: 16px;
+  margin: 0;
+  padding: 0;          
+  text-align: left;          
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+}
+
+.divider {
+  background-color: #e5e5e5;
+  height: 1px;
+  margin: 0 0 0 16px;
+}
+
+.grid {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-rows: 1fr; 
+  gap: 0px 0px;  
+}
+
+.hbox {
+  display: flex;
+  flex-direction: row;
+}
+
+.vbox {
+  display: flex;
+  flex-direction: column;
+}
+
+.concealed {
+  visibility: hidden;
+}
+
+.hidden {
+  display: none !important;
+}

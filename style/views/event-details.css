@@ -1,0 +1,236 @@
+dialog:has( aa-event-details ):has( aa-stack[selected-index='1'] ) {
+  backdrop-filter: blur( 10px ); 
+  background-color: rgba( 247, 247, 247, 0.70 );  
+  border: none; 
+  border-radius: 4px; 
+  box-shadow:
+    0 0 40px -10px rgba( 0, 0, 0, 0.30 ),
+    0 0 25px -15px rgba( 0, 0, 0, 0.20 ); 
+  box-sizing: border-box;   
+  width: 360px;    
+  padding: 1rem;
+  -webkit-backdrop-filter: blur( 10px );  
+}
+
+article {
+  background-color: #ffffff;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+aa-event-details {
+  display: flex;
+  flex-direction: column;
+}
+
+aa-event-details[hidden] {
+  display: none;
+}
+
+aa-event-details article > a {
+  height: 1rem;
+  line-height: 1rem;
+}
+
+aa-event-details > div.hbox:first-of-type {
+  margin: 0 0 0.75rem 0;
+}
+
+aa-event-details > div.hbox > p {
+  flex-basis: 0;
+  flex-grow: 1;
+  font-weight: 600;
+  line-height: 2.25rem;
+  text-align: center;
+}
+
+aa-event-details > div.grid {
+  display: grid; 
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-rows: 1fr; 
+  gap: 0px 0px;  
+  margin: 0 0 0.75rem 0;  
+}
+
+aa-event-details > div.grid > button:last-of-type {
+  justify-self: end;
+}
+
+aa-event-details > div.grid p {
+  font-weight: 600;
+  line-height: 36px;
+  text-align: center;
+}
+
+aa-event-details article div.url p {
+  padding: 0 0 0 1rem;
+}
+
+aa-event-details article div.url a {
+  height: auto;
+  line-height: 21px;
+  margin: 0.25rem 0 0.50rem 0;
+  padding: 0 0 0 1rem;
+}
+
+aa-event-details > button:last-of-type {
+  margin: 1rem 0 0 0;
+}
+
+aa-event-details > button.danger:active {
+  animation: 2s waitforit ease-out forwards;  
+  background-image: linear-gradient( 
+    to right, 
+    rgba( 255, 0, 0, 0.20 ) 0, 
+    rgba( 255, 0, 0, 0.20 ) 50%,
+    white 50%, 
+    white 100%  
+  );
+  background-size: 200% 100%;
+  background-position: 0;
+}
+
+@keyframes waitforit {
+  from {
+    background-position: 100%;
+  }
+  to {
+    background-position: 0;
+  }
+}
+
+aa-event-details article a.hidden,
+aa-event-details article div.hidden,
+aa-event-details article p.hidden {
+  display: none;
+}
+
+aa-event-details article > p:first-of-type {
+  flex-basis: 0;
+  flex-grow: 1;
+  padding: 0.75rem 0 0 1rem;
+}
+
+aa-event-details article div.dates {
+  gap: 4px;
+  padding: 0.75rem 0 0.75rem 1rem;
+}
+
+aa-event-details article div.dates p {
+  color: #8e8e8e;
+  /* margin-top: 0.75rem; */
+}
+
+aa-event-details article div.spaced {
+  padding-top: calc( 0.50rem + 2px );
+}
+
+aa-event-details article div.spaced.map {
+  padding: 0.75rem 0 0.75rem 0;
+}
+
+aa-event-details article div.spaced.map div {
+  background-color: #f7f7f7;
+  border-radius: 4px;
+  min-height: 9rem;
+}
+
+aa-event-details article aa-select {
+  padding: 2px 0.50rem 2px 1rem;
+}
+
+aa-event-details article aa-select label p:first-of-type {
+  flex-basis: 0;
+  flex-grow: 1;
+  padding: 0;
+}
+
+aa-event-details article aa-select label {
+  padding: 0 0.75rem 0 0;
+}
+
+aa-event-details article aa-select label:has( select ) p:last-of-type {
+  flex-basis: unset;
+  flex-grow: unset;
+  max-width: 50%;
+  overflow: hidden;
+  padding: 0 0.75rem 0 0.75rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+aa-event-details article div.notes p {
+  padding: 0 0 0 1rem;
+}
+
+aa-event-details article div.notes p:last-of-type {
+  color: #8e8e8e;
+}
+
+aa-event-details .nobottom {
+  border-bottom: none !important;
+}
+
+aa-event-details ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+aa-event-details ul.divided {
+  border-bottom: solid 1px #e5e5e5;
+}
+
+aa-event-details ul:empty {
+  display: none;
+}
+
+aa-event-details ul li {
+  align-items: center;
+  border-bottom: solid 1px #e5e5e5;    
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 0.50rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 2px 1rem 2px 1rem;
+  padding-left: calc( 1rem - 2px );
+}
+
+aa-event-details ul li:last-of-type {
+  border-bottom: none;
+}
+
+aa-event-details ul li img {
+  cursor: pointer;
+  filter: 
+    invert( 76% ) 
+    sepia( 0% ) 
+    saturate( 107% ) 
+    hue-rotate( 140deg ) 
+    brightness( 83% ) 
+    contrast( 90% );
+}
+
+aa-event-details ul li p {
+  cursor: pointer;
+}
+
+aa-event-details ul li p:first-of-type {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+aa-event-details ul li p:last-of-type {
+  color: #8e8e8e;
+}
+
+#event_details_location {
+  padding: 0.75rem 0 0 1rem;
+}
+
+#event_details_location.hidden + div {
+  padding: 0.75rem 0 0.75rem 1rem;
+}

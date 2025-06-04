@@ -1,0 +1,296 @@
+aa-year {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  position: relative;
+}
+
+aa-year article {
+  background: transparent;
+}
+
+aa-year canvas {
+  display: block;
+  height: 1240px;
+  image-rendering: crisp-edges;
+  width: 2880px;
+}      
+
+aa-year header {
+  display: flex;
+  flex-direction: row;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+aa-year section {
+  display: block;
+  position: relative;
+}      
+
+aa-year section article {
+  height: 1240px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 2880px;
+  z-index: 10;
+}
+
+aa-year article button {
+  align-items: flex-start;
+  background: none;
+  background-color: var( --event-inactive-background-color );        
+  border: none;
+  border-left-color: var( --event-active-background-color );        
+  border-left-width: 4px;
+  border-left-style: solid;        
+  border-radius: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  justify-content: flex-start;
+  margin: 0;
+  outline: none;
+  overflow: hidden;
+  padding: 2px 4px 0 4px;
+  position: absolute;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;              
+}      
+
+aa-year article button span {
+  box-sizing: border-box;
+  color: var( --event-inactive-color );        
+  font-family: 'IBM Plex Sans', serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-rendering: optimizeLegibility;
+  white-space: nowrap;
+  width: 100%;
+}
+
+aa-year article button span:last-of-type {
+  font-weight: 400;
+}
+
+/*
+aa-year article button:focus {      
+  background-color: var( --event-active-background-color ); 
+}
+
+aa-year article button:focus span {      
+  color: #ffffff;
+}
+*/
+
+aa-year article button.selected {
+  background-color: var( --event-active-background-color ); 
+}
+
+aa-year article button.selected span {
+  color: #ffffff;
+}
+
+aa-year header button {
+  background: none;
+  background-color: #f4f4f4;
+  border: none;
+  border-bottom: solid 1px #c7c7c7;
+  border-right: solid 1px #e5e5e5;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: #272727;
+  cursor: pointer;
+  display: block;
+  height: 37px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 16px;
+  line-height: 36px;
+  margin: 0;
+  min-width: 240px;
+  outline: none;
+  padding: 0 0 1px 0;
+  text-rendering: optimizeLegibility;
+  width: 240px;
+  -webkit-tap-highlight-color: transparent;              
+}
+
+aa-year header button:last-of-type {      
+  border-right: none;
+}
+
+aa-year header button:hover {      
+  color: #0082ff;
+}
+
+aa-year[hide-headers] header {
+  display: none;
+}
+
+/*
+aa-year {
+  background-color: #ffffff; 
+  flex-basis: 0;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+aa-year article {
+  position: relative;
+}
+
+aa-year article div.day {
+  align-items: center; 
+  border-bottom: solid 1px #e5e5e5; 
+  border-right: solid 1px #e5e5e5;   
+  box-sizing: border-box;   
+  display: flex;   
+  flex-direction: row;   
+  min-height: 2.50rem; 
+  padding: 0 0 0 3px;  
+}
+
+aa-year article div[weekend='0'].day,
+aa-year article div[weekend='6'].day {
+  background-color: #f5f5f5;  
+}
+
+aa-year article div[month='11'].day {
+  border-right: none;
+}
+
+aa-year article div[month='31'].day {
+  border-bottom: none;
+}
+
+aa-year article div.day p {
+  border-radius: 2.25rem;
+  height: 2.25rem;
+  line-height: 2.25rem;
+  text-align: center;
+  width: 2.25rem;
+}
+
+aa-year article div.day.week p span:first-of-type {
+  display: block; 
+  line-height: 1rem; 
+  margin-top: 0.25rem;
+}
+
+aa-year article div.day.week p span:last-of-type {
+  color: #868686; 
+  display: block;  
+  font-size: 0.75rem; 
+  line-height: 0.75rem; 
+}
+
+aa-year article div.day p span:empty {
+  display: none;
+}
+
+aa-year article div.day.outside {
+  background: none;
+  border-bottom: none;
+}
+
+aa-year article div.day.outside p {
+  display: none;
+}
+
+aa-year article div.day.today p { 
+  background-color: #0082ff;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+aa-year article div.day.today.week p span:last-of-type { 
+  color: #ffffff;
+  font-weight: 400;
+}
+
+aa-year article > div:first-of-type {
+  box-sizing: border-box; 
+  display: flex;
+  flex-direction: column;
+  min-width: 15rem;    
+  position: relative;
+}
+
+aa-year article:last-of-type > div:first-of-type .day {
+  border-right: none;
+}
+
+aa-year article > div:first-of-type div.day:last-of-type {
+  border-bottom: none;
+}
+
+aa-year article button {
+  align-items: flex-start;
+  appearance: none;
+  background-color: var( --event-inactive-background-color );
+  border: none;
+  border-left-color: var( --event-active-background-color );
+  border-left-width: 0.25rem;
+  border-left-style: solid;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 2px 0.25rem 0 0.25rem;
+  position: absolute;
+  text-align: left;
+}
+
+aa-year article button span {
+  box-sizing: border-box;
+  color: var( --event-inactive-color );
+  font-size: 0.875rem;
+  line-height: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-rendering: optimizeLegibility;
+  white-space: nowrap;  
+  width: 100%;
+}
+
+aa-year article button:focus {
+  background-color: var( --event-active-background-color ); 
+}
+
+aa-year article button:focus span {
+  color: var( --event-active-color );
+}
+
+aa-year article button span:first-of-type {
+  font-weight: 600;
+}
+
+aa-year article > div:last-of-type {
+  bottom: 0;
+  left: 42px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+aa-year section {
+  display: flex;
+  flex-basis: 0;
+  flex-direction: column;
+  flex-grow: 1; 
+  height: 100%;
+  overflow: auto;
+  transform-origin: top left;
+}
+*/

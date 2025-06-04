@@ -1,0 +1,22 @@
+aa-footer {
+  align-items: center;    
+  border-top-color: var( --footer-border-color );
+  border-top-style: solid;
+  border-top-width: 1px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-rows: 1fr; 
+  gap: 0px 0px;              
+  min-height: 3rem;
+  margin: 0;
+  padding: 0 1rem 0 1rem;
+}
+
+aa-footer label {
+  justify-self: end;
+}
+
+aa-footer p:last-of-type {
+  text-align: center;
+}

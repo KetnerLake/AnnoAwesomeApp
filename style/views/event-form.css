@@ -1,0 +1,96 @@
+dialog:has( aa-event-form ):has( aa-stack[selected-index='0'] ) {
+  backdrop-filter: blur( 10px ); 
+  background-color: rgba( 247, 247, 247, 0.70 );
+  border: none; 
+  border-radius: 4px; 
+  box-shadow:
+    0 0 40px -10px rgba( 0, 0, 0, 0.30 ),
+    0 0 25px -15px rgba( 0, 0, 0, 0.20 ); 
+  box-sizing: border-box;   
+  width: 360px;    
+  padding: 0;
+  -webkit-backdrop-filter: blur( 10px );
+}
+
+aa-event-form {
+  display: flex;
+  flex-direction: column;
+}
+
+aa-event-form.pinned > div.grid.sticky {
+  background-color: #fafafa;
+  border-bottom: solid 1px #b2b2b2;
+}
+
+aa-event-form[hidden] {
+  display: none;
+}
+
+aa-event-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1rem 1rem 1rem;
+}
+
+aa-event-form form > button.danger:active {
+  animation: 2s waitforit ease-out forwards;  
+  background-image: linear-gradient( 
+    to right, 
+    rgba( 255, 0, 0, 0.20 ) 0, 
+    rgba( 255, 0, 0, 0.20 ) 50%,
+    white 50%, 
+    white 100%  
+  );
+  background-size: 200% 100%;
+  background-position: 0;
+}
+
+@keyframes waitforit {
+  from {
+    background-position: 100%;
+  }
+  to {
+    background-position: 0;
+  }
+}
+
+aa-event-form form div.vbox { 
+  background-color: #ffffff;
+  border-radius: 4px;
+}
+
+aa-event-form div.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-rows: 1fr; 
+  gap: 0px 0px;
+}
+
+aa-event-form div.grid.sticky {
+  padding: 1rem;
+  position: sticky;
+  top: -1px;
+  z-index: 100;  
+}
+
+aa-event-form div.grid button {
+  padding: 0;
+}
+
+aa-event-form div.grid button:last-of-type {
+  justify-self: end;
+}
+
+aa-event-form div.grid p {
+  font-weight: 600;
+  text-align: center;
+}
+
+aa-event-form form > div:nth-of-type( 2 ) aa-input:last-of-type label {
+  border-bottom: none;
+}
+
+aa-event-form label:has( textarea ) {
+  border-bottom: none;
+}

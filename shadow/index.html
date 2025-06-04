@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Plan your year. Track annual progress. Feel awesome about your accomplishments. Anno Awesome: The missing year view.">
+
+    <title>Anno Awesome</title>
+
+    <link href="./img/trident.svg" rel="icon" type="image/svg+xml" />
+    <link href="awesome.css" rel="stylesheet" />
+
+  </head>
+  <body>
+
+    <!-- Left drawer -->
+    <aa-drawer hidden id="drawer_left" placement="start">
+      <aa-stack id="left_stack" style="display: flex; flex-direction: column; flex-basis: 0; flex-grow: 1;">
+        <aa-calendar-details id="left_calendars"></aa-calendar-details>
+        <aa-vbox style="flex-basis: 0; flex-grow: 1;">
+          <aa-label size="xl" style="padding-left: 16px; padding-top: 64px; padding-bottom: 47px;" text="Events" weight="bold"></aa-label>
+          <aa-event-list id="drawer_events" style="border-top: solid 1px #c7c7c7; flex-basis: 0; flex-grow: 1;">
+            <aa-label style="--label-color: #85858c;" text="No events"></aa-label>
+          </aa-event-list>
+        </aa-vbox>
+      </aa-stack>
+    </aa-drawer>
+
+    <!-- Main -->
+    <main>
+
+      <!-- Year -->
+      <!-- Today -->
+      <aa-header></aa-header>
+  
+      <!-- Year view -->
+      <aa-year style="flex-grow: 1; flex-basis: 0;"></aa-year>      
+  
+      <!-- Scale -->
+      <aa-footer></aa-footer>
+
+    </main>
+
+    <!-- Right drawer -->
+    <aa-drawer hidden id="drawer_right" placement="end" style="background-color: #f4f4f3; padding-top: 68px;">
+      <aa-event-list id="drawer_search" style="background-color: #f2f2f9; border-top: solid 1px #c7c7c7; flex-basis: 0; flex-grow: 1;">
+        <aa-vbox centered gap="m" style="width: 65%;">
+          <aa-icon size="l" src="./img/search.svg" style="margin-bottom: 8px;"></aa-icon>
+          <aa-label size="l" text="No events" weight="bold"></aa-label>
+          <aa-label style="--label-color: #85858c; --label-line-height: 21px; --label-text-align: center;" text="Check the spelling or try a new search."></aa-label>
+        </aa-vbox>
+      </aa-event-list>
+    </aa-drawer>
+
+    <!-- Account -->
+    <!-- Share (pending) -->          
+    <!-- Calendars -->
+    <!-- List events -->
+    <!-- Add event -->
+    <!-- Search -->
+    <aa-controls></aa-controls>
+
+    <!-- Account -->
+    <dialog class="popover transparent" id="account">
+      <aa-account-form id="account_form"></aa-account-form>
+    </dialog>
+
+    <!-- Event -->
+    <!-- Placement strategy? style="margin-left: 16px; margin-top: 70px;" -->
+    <dialog class="popover transparent" id="event">
+      <aa-stack id="event_stack">
+        <aa-event-form id="event_form"></aa-event-form>
+        <aa-event-details id="event_details"></aa-event-details>
+      </aa-stack>        
+    </dialog>    
+
+    <!-- Calendar -->
+    <dialog class="popover transparent" id="calendar">
+      <aa-calendar-form id="calendar_form"></aa-calendar-form>
+    </dialog>
+
+    <!-- Data -->
+    <script src="./lib/dexie-4.0.8.js"></script>
+
+    <!-- Components -->
+    <script src="./components.js" type="module"></script>
+
+    <!-- Application -->
+    <script src="./awesome.js"></script>
+
+  </body>
+</html>

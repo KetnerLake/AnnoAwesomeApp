@@ -1,0 +1,84 @@
+aa-event-list li.event {
+  align-items: center;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin: 0 0.50rem 0 0.50rem;
+  padding: 0.50rem 0.50rem 0.50rem 0.50rem;
+}
+
+aa-event-list div.backdrop {
+  background-color: #ffffff;
+  border-radius: 4px;
+}
+
+aa-event-list div.backdrop div {
+  align-items: center;
+  background-color: #f443364d;
+  border-radius: 4px;
+  height: 2.25rem;
+  justify-content: center;
+  width: 2.25rem;
+}
+
+aa-event-list div.lede {
+  padding-bottom: 2px;
+}
+
+aa-event-list p {
+  cursor: pointer;
+}
+
+aa-event-list p.day {
+  font-weight: 600;  
+  min-height: 1rem;
+  line-height: 1rem;
+}
+
+aa-event-list p.month {
+  text-transform: uppercase;
+}
+
+aa-event-list p.ends,
+aa-event-list p.month,
+aa-event-list p.starts,
+aa-event-list p.location {
+  font-size: 0.875rem;
+  line-height: 0.875rem;
+  min-height: 0.875rem;  
+}
+
+aa-event-list p.summary {
+  font-weight: 600;
+}
+
+aa-event-list div:last-of-type,
+aa-event-list p.summary,
+aa-event-list p.location {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+aa-event-list p.location {
+  color: #8a8b8e;
+}
+
+aa-event-list p.ends,
+aa-event-list p.starts {
+  color: #8a8b8e;
+  text-align: right;  
+}
+
+aa-event-list li.event.selected {
+  background-color: #dad9e1;
+}
+
+aa-event-list li.event.outdated p {
+  color: #a9a9b0 !important;
+}
+
+aa-event-list[disabled] p {
+  color: #a9a9b0 !important;
+}

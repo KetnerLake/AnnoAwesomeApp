@@ -1,0 +1,18 @@
+aa-navigation {
+  display: flex;
+  flex-direction: row;
+  left: 16px;
+  position: absolute;                        
+  right: 16px;
+  top: 16px;
+  z-index: 50;  
+}
+
+aa-navigation div:first-of-type {
+  gap: 0.50rem;
+}
+
+aa-navigation div:last-of-type {
+  gap: 1rem;
+  margin-left: auto;
+}

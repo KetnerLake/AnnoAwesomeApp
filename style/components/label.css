@@ -1,0 +1,19 @@
+p {
+  box-sizing: border-box;
+  color: #272727;
+  cursor: default;
+  line-height: 1rem;
+  margin: 0;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+}
+
+p.grouped {
+  color: #868686;
+  font-size: 0.875rem;
+  text-transform: uppercase;  
+}
+
+p.label {
+  line-height: 2.25rem;
+} 

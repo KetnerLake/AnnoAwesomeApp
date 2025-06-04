@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Plan your year. Track annual progress. Feel awesome about your accomplishments. Anno Awesome: The missing year view.">
+
+    <title>Anno Awesome</title>
+
+    <link href="./img/trident.svg" rel="icon" type="image/svg+xml" />
+    <link href="./style/awesome.css" rel="stylesheet" />
+
+  </head>
+  <body>
+
+    <!-- Left -->
+    <aside id="left" class="hidden">
+      <aa-stack selected-index="0">
+
+        <!-- Calendars -->
+        <aa-calendar-details>
+          <h3>Calendars</h3>
+
+          <!-- Mine/private -->
+          <aa-calendar-section>
+            <div class="hbox">
+              <p class="label grouped">My Awesome</p>
+              <button aria-label="Hide my events" type="button">Hide All</button>
+            </div>
+            <ul class="list">
+              <li>
+                <label>
+                  <input id="group_mine" type="checkbox" />
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                  </svg>
+                </label>
+                <p>Calendar</p>
+                <button aria-label="Calendar information" class="icon" type="button">
+                  <img alt="Calendar information" src="./img/info-circle.svg" />
+                </button>
+              </li>                  
+            </ul>
+          </aa-calendar-section>
+
+          <!-- Shared -->
+          <aa-calendar-section>
+            <div class="hbox">
+              <p class="label grouped">Shared</p>
+              <button aria-label="Hide shared events" type="button">Hide All</button>
+            </div>
+            <ul class="list"></ul>        
+          </aa-calendar-section>
+
+          <!-- Public -->
+          <aa-calendar-section>
+            <div class="hbox">
+              <p class="label grouped">Public</p>
+              <button aria-label="Hide public events" type="button">Hide All</button>
+            </div>
+            <ul class="list"></ul>        
+          </aa-calendar-section>
+
+          <small>Hiding a shared or public calendar does not make it private.</small>    
+          
+          <!-- Colors -->
+          <label id="calendar_colors">
+            <input id="use_calendar_colors" type="checkbox" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+            <p>Use calendar color</p>
+          </label>            
+
+          <div class="hbox">
+            <button aria-label="Add calendar" id="calendar_details_add" type="button">Add Calendar</button>
+            <button aria-label="Hide all calendars" id="calendar_details_hide" type="button">Hide All</button>        
+          </div>
+        </aa-calendar-details>
+
+        <!-- Events -->
+        <aa-event-list hidden>
+          <h3>Events</h3>
+          <ul class="list"></ul>
+          <div>
+            <p>No events available.</p>
+            <button aria-label="Add event" id="event_list_add" type="button">Add Event</button>
+          </div>
+        </aa-event-list>
+
+      </aa-stack>
+    </aside>
+
+    <main>
+
+      <aa-header>
+        <h3>2024</h3>
+        <div class="hbox">
+          <button aria-label="Previous" class="icon small" type="button">
+            <img alt="Previous" src="./img/chevron-left.svg" />
+          </button>          
+          <button aria-label="Today" type="button">Today</button>
+          <button aria-label="Next" class="icon small" type="button">
+            <img alt="Next" src="./img/chevron-right.svg" />
+          </button>                    
+        </div>
+      </aa-header>
+  
+      <aa-year>
+        <header>
+          <button></button>
+          <button></button>
+          <button></button>
+          <button></button>                        
+          <button></button>
+          <button></button>
+          <button></button>
+          <button></button>                        
+          <button></button>
+          <button></button>
+          <button></button>
+          <button></button>                                        
+        </header>
+        <section>
+          <canvas height="1240" width="2880"></canvas>
+          <article></article>
+        </section>
+      </aa-year>
+
+      <aa-footer>
+        <p>Made with ❤️ by <a href="https://patreon.com/krhoyt" target="_blank">Kevin Hoyt</a>.</p>
+        <p>0 events</p>
+        <button aria-label="Full screen" class="icon" style="margin-left: auto;" type="button">
+          <img alt="Toggle full screen" src="./img/fullscreen.svg" />
+        </button>        
+        <!--
+        <div class="hbox" style="gap: 0.50rem; margin-left: auto;">
+          <button aria-label="Fit to height" class="icon" type="button">
+            <img alt="Fit to height" src="/app/img/fit-vertical.svg" />
+          </button>
+          <button aria-label="Fit to width" class="icon" type="button">
+            <img alt="Fit to width" src="/app/img/fit-horizontal.svg" />
+          </button>          
+          <button aria-label="Full size" class="checked icon" type="button">
+            <img alt="Full size" src="/app/img/fit-full-screen.svg" />
+          </button>                    
+        </div>
+        -->
+      </aa-footer>
+
+    </main>
+
+    <!-- Right -->
+    <aside id="right" class="right hidden">
+
+      <!-- Results -->
+      <aa-event-list>
+        <ul class="list"></ul>
+        <div>
+          <img alt="Search results" src="./img/search.svg" />
+          <h4>No events</h4>
+          <p>Check the spelling or try a new search.</p>
+        </div>
+      </aa-event-list>
+
+    </aside>    
+
+    <!-- Navigation -->
+    <!-- Account -->
+    <!-- Calendars -->
+    <!-- Events -->
+    <!-- Add -->
+    <!-- Search -->
+    <aa-navigation>
+      <div class="hbox">
+        <button aria-label="Account" class="icon" type="button">
+          <img alt="Account" src="./img/account.svg" />
+        </button>
+        <button aria-label="Calendar list" class="icon" type="button">
+          <img alt="Calendar list" src="./img/calendar.svg" />
+        </button>      
+        <button aria-label="Event list" class="icon" type="button">
+          <img alt="Event list" src="./img/list.svg" />
+        </button>      
+        <button aria-label="Add event" class="icon" type="button">
+          <img alt="Add event" src="./img/add.svg" />
+        </button>      
+      </div>
+      <div class="hbox">
+        <aa-search>
+          <label>
+            <img alt="Search" src="./img/search.svg" />
+            <input id="search_input" inputmode="search" placeholder="Search" tabindex="-1" type="search" />
+            <button aria-label="Clear search" class="icon" type="button">
+              <img alt="Clear search" src="./img/close.svg" />
+            </button>
+          </label>   
+        </aa-search>          
+        <button aria-label="Cancel search" class="hidden slimmed" type="button">Cancel</button>               
+      </div>
+    </aa-navigation>  
+
+    <!-- Account -->
+    <dialog id="account">
+      <aa-account-form>
+        <form id="account_form">
+          <aa-input>
+            <label divided>
+              <input autocomplete="new-password" id="email_input" inputmode="email" placeholder="Email address" type="text" />
+              <button aria-label="Clear email" class="icon" type="button">
+                <img alt="Clear email" src="./img/close.svg" />
+              </button>
+            </label>   
+          </aa-input>
+          <aa-input>
+            <label divided>
+              <input autocomplete="new-password" id="password_input" placeholder="Password" type="password" />
+              <button aria-label="Show password" class="icon" type="button">
+                <img alt="Show password" src="./img/eye-slash-fill.svg" />
+              </button>          
+              <button aria-label="Clear password" class="icon" type="button">
+                <img alt="Clear password" src="./img/close.svg" />
+              </button>
+            </label>   
+          </aa-input>
+          <button aria-label="Sign into account" type="button">Sign in</button>                  
+        </form>        
+        <div class="vbox filled rounded">
+          <div class="hbox">
+            <p class="label">Account status</p>
+            <p class="label">Free</p>            
+          </div>
+          <button aria-label="Sign up" class="signup" type="button">
+            <img alt="Trident logo" src="./img/trident.svg" />
+            <div class="vbox">
+              <div class="hbox cta">
+                <p>Get more awesome</p>
+                <img alt="Follow arrow" src="./img/arrow-right.svg" />
+              </div>
+              <p class="pitch">Sync across devices, share privately or publicly, add attachments, location lookup, and more...</p>
+            </div>
+          </button>
+        </div>
+        <button aria-label="Export the awesome" class="filled" id="account_export" type="button">Export the awesome...</button>          
+        <button aria-label="Close account details" id="account_cancel" type="button">Just checking it out</button>
+      </section>
+    </dialog>
+    
+    <!-- Calendar -->
+    <dialog id="calendar">
+      <aa-calendar-form>
+        <form id="calendar_form">
+          <div class="grid">
+            <button aria-label="Cancel" id="calendar_form_cancel" type="button">Cancel</button>
+            <p class="label" id="calendar_form_title">Add Calendar</p>
+            <button aria-label="Done" disabled id="calendar_form_done" type="button">Done</button>            
+          </div>
+          <aa-input id="calendar_form_name">
+            <label filled>
+              <input autocomplete="new-password" id="calendar_name" placeholder="Calendar name" type="text" />
+              <button aria-label="Clear name" class="icon" type="button">
+                <img alt="Clear name" src="./img/close.svg" />
+              </button>
+            </label>   
+          </aa-input>  
+          <details>
+            <summary>
+              <div></div>
+              <p>Red</p>
+              <img alt="Expand color list" src="./img/chevron-right.svg" />
+            </summary>
+            <ul></ul> 
+          </details>
+          <div class="vbox">
+            <p class="label grouped">Shared with</p>
+            <button aria-label="Add person" id="calendar_form_share" type="button">Add person</button>
+            <small>Private sharing requires all parties have a paid account.</small>            
+          </div>
+          <div id="calendar_public" class="vbox">
+            <div class="hbox rounded">
+              <p>Public calendar</p>
+              <label class="toggle">
+                <input id="calendar_form_public" type="checkbox" />
+              </label>              
+            </div>
+            <div class="hbox centered filled rounded" id="calendar_url">
+              <p>https://annoawesome.com?calendar=</p>
+              <p></p>
+              <button aria-label="Copy to clipboard" class="icon" type="button">
+                <img src="./img/copy.svg" />
+              </button>
+            </div>            
+            <small>Allow anyone access to a read-only version of this calendar.</small>
+          </div>
+          <button aria-label="Export calendar events" class="filled rounded" id="calendar_form_export" type="button">Export calendar events...</button>
+          <button aria-label="Delete calendar" id="calendar_form_delete" type="button">Delete Calendar</button>
+        </form>
+      </aa-calendar-form>
+    </dialog>    
+
+    <!-- Event -->
+    <dialog id="event">
+
+      <!-- Form -->
+      <aa-stack selected-index="1">
+
+        <aa-event-form>
+          <div class="grid sticky">
+            <button aria-label="Cancel" id="event_form_cancel" type="button">Cancel</button>
+            <p class="label" id="event_form_header">New Event</p>
+            <button aria-label="Add event" disabled id="event_form_add" type="button">Add</button>            
+          </div>          
+          <form id="event_form">
+            <div class="vbox">
+              <aa-input id="event_form_title">
+                <label divided>
+                  <input autocomplete="new-password" id="event_title" placeholder="Title" type="text" />
+                  <button aria-label="Clear title" class="icon" type="button">
+                    <img alt="Clear title" src="./img/close.svg" />
+                  </button>
+                </label>  
+              </aa-input>
+              <aa-input id="event_form_location">
+                <label>
+                  <input autocomplete="new-password" id="event_location" placeholder="Location" type="text" />
+                  <button aria-label="Clear location" class="icon" type="button">
+                    <img alt="Clear location" src="./img/close.svg" />
+                  </button>
+                </label>   
+              </aa-input>           
+            </div>
+            <div class="vbox">
+              <aa-date-picker>
+                <details>
+                  <summary>
+                    <p>Starts</p>
+                    <p>Sep 14, 2024</p>
+                  </summary>
+                </details>
+              </aa-date-picker>
+              <aa-date-picker>
+                <details>
+                  <summary class="hbox centered">
+                    <p>Ends</p>
+                    <p>Sep 14, 2024</p>
+                  </summary>
+                </details>
+              </aa-date-picker>            
+            </div>
+            <aa-select class="filled" label-field="name" value-field="id">
+              <label>
+                <div></div>
+                <p>Label</p>
+                <img alt="Toggle options" src="./img/chevron-expand.svg" />
+                <select></select>
+              </label>
+            </aa-select>
+            <aa-attachments>
+              <input type="file" />
+              <ul></ul>              
+              <button aria-label="Add attachment" class="filled" type="button">Add attachment...</button>        
+            </aa-attachments>
+            <div class="vbox">
+              <aa-input id="event_form_url">
+                <label divided>
+                  <input autocomplete="new-password" id="event_url" inputmode="url" placeholder="URL" type="text" />
+                  <button aria-label="Clear URL" class="icon" type="button">
+                    <img alt="Clear URL" src="./img/close.svg" />
+                  </button>
+                </label>   
+              </aa-input>  
+              <label>
+                <textarea id="event_notes" placeholder="Notes"></textarea>
+              </label>                   
+            </div>
+            <button aria-label="Delete event" class="danger filled rounded" type="button">Delete Event</button>        
+          </form>
+        </aa-event-form>
+
+        <!-- Details -->
+        <aa-event-details>
+          <div class="hbox">
+            <button aria-label="Close" class="slimmed" id="event_details_cancel" type="button">Close</button>
+            <p id="event_details_title">Test Event</p>
+            <button aria-label="Edit" class="slimmed" id="event_details_edit" type="button">Edit</button>
+          </div>
+          <article>
+            <!-- <p id="event_details_title" class="label">Test Event</p> -->
+            <p id="event_details_location">Parker, CO</p>
+            <!-- <a href="https://kevinhoyt.com">Parker, CO</a> -->
+            <div class="vbox divided dates">
+              <p id="event_details_starts">from September 17, 2024</p>
+              <p id="event_details_ends">to September 18, 2024</p>
+            </div>
+            <aa-select class="divided" id="event_details_calendar" label-field="name" value-field="id">
+              <label>
+                <p class="label">Calendar</p>
+                <div></div>
+                <p>Label</p>
+                <img alt="Toggle options" src="./img/chevron-expand.svg" />
+                <select></select>
+              </label>
+            </aa-select>
+            <ul class="divided hidden"></ul>            
+            <div class="vbox divided spaced url">
+              <p>URL</p>
+              <a href="https://kevinhoyt.com" id="event_details_url" target="_blank">https://kevinhoyt.com</a>
+            </div>
+            <div class="vbox divided spaced notes">
+              <p>Notes</p>
+              <p class="label" id="event_details_notes">No, no, no, nope, notes.</p>                      
+            </div>
+            <div class="vbox divided spaced map">
+              <div id="event_details_map"></div>
+            </div>          
+          </article>
+          <button aria-label="Delete event" class="centered danger filled" type="button">Delete Event</button>          
+        </aa-event-details>
+
+      </aa-stack>
+    </dialog>
+
+    <template id="calendar_list_renderer">
+      <li>
+        <label>
+          <input type="checkbox" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </svg>
+        </label>
+        <p>Calendar</p>
+        <button aria-label="Calendar information" class="icon" type="button">
+          <img alt="Calendar information" src="./img/info-circle.svg" />
+        </button>
+      </li>    
+    </template>
+
+    <template id="color_picker_renderer">
+      <li>
+        <div></div>
+        <p>Red</p>
+        <img alt="Red selected" src="./img/check2.svg" />                
+      </li>
+    </template>
+
+    <template id="event_list_renderer">
+      <li class="event">
+        <div class="backdrop">
+          <div class="vbox">
+            <p class="day">99</p>
+            <p class="month">XXX</p>
+          </div>
+        </div>
+        <div class="vbox">
+          <div class="hbox lede">
+            <p class="summary">Summary</p>
+            <p class="ends">Ends</p>
+          </div>  
+          <div class="hbox">
+            <p class="location">Parker, CO</p>
+            <p class="starts">Thu, Jan 4</p>
+          </div>                          
+        </div>
+      </li>      
+    </template>
+
+    <template id="calendar_month">
+      <div class="vbox calendar">
+        <div class="hbox centered">
+          <p>Month 2024</p>
+          <button aria-label="Previous month" class="icon" type="button">
+            <img alt="Previous month" src="./img/chevron-left.svg" />
+          </button>
+          <button aria-label="Next month" class="icon" type="button">
+            <img alt="Next month" src="./img/chevron-right.svg" />
+          </button>          
+        </div>
+        <div class="week">
+          <p>Sun</p>
+          <p>Mon</p>
+          <p>Tue</p>
+          <p>Wed</p>
+          <p>Thu</p>
+          <p>Fri</p>
+          <p>Sat</p>
+        </div>
+        <div class="month"></div>
+      </div>        
+    </template>
+
+    <script src="./lib/calendar-tiler.js"></script>    
+    <script src="./lib/dexie-4.0.8.js"></script>
+    <script src="./components/components.js"></script>
+    <script src="./awesome.js"></script>
+
+  </body>
+</html>

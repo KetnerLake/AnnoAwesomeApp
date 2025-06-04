@@ -1,0 +1,49 @@
+aa-calendar-section {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 1rem 1rem;
+}
+
+aa-calendar-section div button {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  margin-left: auto;
+  text-transform: uppercase;
+}
+
+aa-calendar-section > div p {
+  padding: 0 0 0 1rem;
+}
+
+aa-calendar-section ul {
+  background-color: #ffffff;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+aa-calendar-section ul li {
+  align-items: center;
+  border-bottom: solid 1px #e5e5e5;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 0 0.50rem 0 1rem;
+}
+
+aa-calendar-section ul li:last-of-type {
+  border-bottom: none;
+}
+
+aa-calendar-section ul li p {
+  flex-basis: 0;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
