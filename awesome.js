@@ -155,10 +155,10 @@ account_form.addEventListener( 'aa-export', () => {
 } );
 account_form.addEventListener( 'aa-sign-in', ( evt ) => {
   const response = confirm( 'Individual accounts not yet available. Sponsor feature development. Learn more?' );
-  if( response ) window.open( 'https://patreon.com/krhoyt', '_blank' );
+  if( response ) window.open( 'https://ketnerlake.com', '_blank' );
 } );
 account_form.addEventListener( 'aa-sign-up', () => {
-  window.open( 'https://patreon.com/krhoyt', '_blank' );
+  window.open( 'https://ketnerlke.com', '_blank' );
   blocker( false );        
   account_dialog.close();
 } );      
@@ -427,7 +427,7 @@ calendar_form.addEventListener( 'aa-export', ( evt ) => {
 } );
 calendar_form.addEventListener( 'aa-sign-up', () => {
   const result = confirm( 'Not yet available. You can sponsor additional development. Learn more?' );
-  if( result ) window.open( 'https://patreon.com/krhoyt', '_blank' );
+  if( result ) window.open( 'https://ketnerlake.com', '_blank' );
 } );
 
 // Details
